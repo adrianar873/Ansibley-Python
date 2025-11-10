@@ -46,4 +46,29 @@ Directorio con roles reutilizables. Cada rol contiene tareas, handlers, template
 ### `requirements.txt`
 Lista las dependencias Python necesarias (ansible, paramiko, jinja2, etc.) para ejecutar el proyecto.
 
+
+##  Despliegue
+
+### Ejecutar el playbook de despliegue
+```bash
+ansible-playbook -i inventories/hosts.ini playbooks/deploy.yml --ask-pass --ask-become-pass
+```
+
+**Resultado del despliegue:**
+
+![Resultado deploy](https://github.com/user-attachments/assets/64bfe369-1aea-4bd4-abf8-00c50b03b678)
+
+### Verificar el servicio
+
+Una vez desplegado, puedes verificar que el servicio Flask está funcionando mediante una petición HTTP:
+
+```bash
+curl http://tu-servidor:5000/api/endpoint
+```
+
+**Resultado de la petición HTTP:**
+
+![Resultado petición HTTP](https://github.com/user-attachments/assets/8acb3816-277d-4368-b09c-c7b1597dc6c5)
+
+
 ....
