@@ -63,7 +63,7 @@ ansible-playbook -i inventories/hosts.ini playbooks/deploy.yml --ask-pass --ask-
 Una vez desplegado, puedes verificar que el servicio Flask está funcionando mediante una petición HTTP:
 
 ```bash
-curl http://tu-servidor:5000/api/endpoint
+curl http://tu-servidor:5000/
 ```
 
 **Resultado de la petición HTTP:**
