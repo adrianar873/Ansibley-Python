@@ -1,0 +1,14 @@
+[Unit]
+Description=System Monitor Flask API
+After=network.target
+
+[Service]
+User={{ ansible_user }}
+WorkingDirectory=/opt/system_monitor
+Environment="PATH=/opt/system_monitor/venv/bin"
+Environment="MONGO_URI=mongodb://192.168.18.3:27017/system_monitor"
+ExecStart=/opt/system_monitor/venv/bin/python /opt/system_monitor/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

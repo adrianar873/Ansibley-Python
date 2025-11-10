@@ -1,0 +1,5 @@
+- name: Desplegar System Monitor API
+  hosts: servers
+  become: true
+  roles:
+    - ../roles/flask-app

@@ -1,0 +1,43 @@
+- name: Crear directorio para la app
+  file:
+    path: /opt/system_monitor
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "0755"
+
+- name: Copiar código de la app
+  copy:
+    src: app/
+    dest: /opt/system_monitor/app/
+    owner: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: Instalar Python3 y pip
+  apt:
+    name:
+      - python3
+      - python3-venv
+      - python3-pip
+    state: present
+    update_cache: yes
+
+- name: Crear entorno virtual
+  command: python3 -m venv /opt/system_monitor/venv
+  args:
+    creates: /opt/system_monitor/venv/bin/activate
+
+- name: Instalar dependencias
+  pip:
+    requirements: /opt/system_monitor/app/requirements.txt
+    virtualenv: /opt/system_monitor/venv
+
+- name: Copiar plantilla del servicio systemd
+  template:
+    src: flask.service.j2
+    dest: /etc/systemd/system/system_monitor.service
+
+- name: Habilitar y arrancar el servicio
+  systemd:
+    name: system_monitor
+    enabled: yes
+    state: started
